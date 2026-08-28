@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link href="./output.css" rel="stylesheet">
+  <title>Hotel booking confirmation page</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    .attribution { font-size: 0.6875rem; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+  </style>
+</head>
+<body class="bg-neutral-100 font-sans text-neutral-900">
+
+  <div class="lg:flex lg:min-h-screen">
+
+    <!-- ============ Mobile header (below lg) ============ -->
+    <header class="flex items-center justify-between px-4 py-4 lg:hidden">
+      <a href="#" class="flex items-center gap-2">
+        <div class="logo">
+          <img src="./assets/images/logo.svg" alt="Logo Maison Soleil" class="h-full w-full" aria-hidden="true">
+        </div>
+        <!-- <img src="./assets/images/icon-sun.svg" alt="" class="h-6 w-6" aria-hidden="true">
+        <span class="leading-tight">
+          <span class="block font-serif italic text-terracotta-600 text-base">Maison</span>
+          <span class="block font-serif font-semibold text-neutral-900 text-base -mt-1">Soleil</span>
+        </span> -->
+      </a>
+      <button type="button" id="menu-open-btn" aria-controls="mobile-menu" aria-expanded="false"
+        class="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-400 bg-neutral-0">
+        <img src="./assets/images/icon-menu.svg" alt="Open menu" class="h-5 w-5">
+      </button>
+    </header>
+
+    <!-- ============ Mobile nav overlay ============ -->
+    <nav id="mobile-menu"
+      class="fixed inset-0 z-50 hidden flex-col bg-neutral-100 px-4 py-4 lg:hidden">
+      <div class="flex items-center justify-between">
+        <a href="#" class="flex items-center gap-2">
+        <div class="logo">
+          <img src="./assets/images/logo.svg" alt="Logo Maison Soleil" class="h-full w-full" aria-hidden="true">
+        </div>
+          <!-- <img src="./assets/images/icon-sun.svg" alt="" class="h-6 w-6" aria-hidden="true">
+          <span class="leading-tight">
+            <span class="block font-serif italic text-terracotta-600 text-base">Maison</span>
+            <span class="block font-serif font-semibold text-neutral-900 text-base -mt-1">Soleil</span>
+          </span> -->
+        </a>
+        <button type="button" id="menu-close-btn"
+          class="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-400 bg-[var(--neutral-0)]">
+          <img src="./assets/images/icon-close.svg" alt="Close menu" class="h-5 w-5">
+        </button>
+      </div>
+
+      <ul class="mt-6 flex flex-col gap-1 border-b border-neutral-400 pb-4">
+        <li>
+          <a href="#main-content" class="flex items-center justify-between rounded-xl bg-[var(--neutral-0)] px-4 py-3 font-semibold text-[var(--neutral-900)] shadow-sm">
+            <span class="flex items-center gap-3">
+              <img src="./assets/images/icon-bed.svg" alt="" class="h-5 w-5" aria-hidden="true">
+              Your stay
+            </span>
+            <span class="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--terracotta-600)] text-[11px] font-semibold text-[var(--neutral-0)]">1</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="flex items-center gap-3 px-4 py-3 text-[var(--neutral-600)]">
+            <img src="./assets/images/icon-house.svg" alt="" class="h-5 w-5" aria-hidden="true">
+            The house
+          </a>
+        </li>
+        <li>
+          <a href="#" class="flex items-center gap-3 px-4 py-3 text-[var(--neutral-600)]">
+            <img src="./assets/images/icon-pin.svg" alt="" class="h-5 w-5" aria-hidden="true">
+            Around town
+          </a>
+        </li>
+        <li>
+          <a href="#" class="flex items-center gap-3 px-4 py-3 text-[var(--neutral-600)]">
+            <img src="./assets/images/icon-breakfast-outline.svg" alt="" class="h-5 w-5" aria-hidden="true">
+            Breakfast
+          </a>
+        </li>
+        <li>
+          <a href="#" class="flex items-center gap-3 px-4 py-3 text-[var(--neutral-600)]">
+            <img src="./assets/images/icon-mail.svg" alt="" class="h-5 w-5" aria-hidden="true">
+            Messages
+          </a>
+        </li>
+      </ul>
+
+      <div class="mt-auto flex flex-col gap-4 pb-4">
+        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[var(--sun-300)] to-[var(--sun-500)] p-4">
+          <img src="./assets/images/icon-weather.svg" alt="" aria-hidden="true"
+            class="pointer-events-none absolute -right-3 -top-3 h-16 w-16">
+          <p class="font-mono text-[11px] uppercase tracking-wider text-neutral-800/80">Today in Cassis</p>
+          <p class="font-serif text-4xl text-neutral-900">27°</p>
+          <p class="text-sm text-neutral-800">Sunny · light breeze</p>
+        </div>
+        <div class="border-t border-dashed border-neutral-400 pt-4 font-mono text-[11px] uppercase tracking-wide text-[var(--neutral-600)]">
+          <p>Est. 1987</p>
+          <p class="mt-1">Maison Soleil · 12 Rue des Oliviers · Cassis</p>
+          <p class="mt-1">© 2026 Maison Soleil</p>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ============ Desktop sidebar ============ -->
+    <aside class="hidden lg:flex lg:w-[260px] lg:shrink-0 lg:flex-col lg:justify-between lg:border-r lg:border-neutral-400/70 lg:px-6 lg:py-8">
+      <div>
+        <a href="#" class="flex items-center gap-2">
+        <div class="logo">
+          <img src="./assets/images/logo.svg" alt="Logo Maison Soleil" class="h-full w-full" aria-hidden="true">
+        </div>
+          <!-- <img src="./assets/images/icon-sun.svg" alt="" class="h-7 w-7" aria-hidden="true">
+          <span class="leading-tight">
+            <span class="block font-serif italic text-terracotta-600 text-lg">Maison</span>
+            <span class="block font-serif font-semibold text-neutral-900 text-lg -mt-1.5">Soleil</span>
+          </span> -->
+        </a>
+
+        <ul class="mt-8 flex flex-col gap-1 border-b border-neutral-400/70 pb-6">
+          <li>
+            <a href="#main-content" class="flex items-center justify-between rounded-xl bg-neutral-0 px-4 py-3 font-semibold text-neutral-900 shadow-sm">
+              <span class="flex items-center gap-3">
+                <img src="./assets/images/icon-bed.svg" alt="" class="h-5 w-5" aria-hidden="true">
+                Your stay
+              </span>
+              <span class="flex h-5 w-5 items-center justify-center rounded-full bg-terracotta-600 text-[11px] font-semibold text-neutral-0">1</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="flex items-center gap-3 rounded-xl px-4 py-3 text-neutral-600 transition-colors hover:text-neutral-900">
+              <img src="./assets/images/icon-house.svg" alt="" class="h-5 w-5" aria-hidden="true">
+              The house
+            </a>
+          </li>
+          <li>
+            <a href="#" class="flex items-center gap-3 rounded-xl px-4 py-3 text-neutral-600 transition-colors hover:text-neutral-900">
+              <img src="./assets/images/icon-pin.svg" alt="" class="h-5 w-5" aria-hidden="true">
+              Around town
+            </a>
+          </li>
+          <li>
+            <a href="#" class="flex items-center gap-3 rounded-xl px-4 py-3 text-neutral-600 transition-colors hover:text-neutral-900">
+              <img src="./assets/images/icon-breakfast-outline.svg" alt="" class="h-5 w-5" aria-hidden="true">
+              Breakfast
+            </a>
+          </li>
+          <li>
+            <a href="#" class="flex items-center gap-3 rounded-xl px-4 py-3 text-neutral-600 transition-colors hover:text-neutral-900">
+              <img src="./assets/images/icon-mail.svg" alt="" class="h-5 w-5" aria-hidden="true">
+              Messages
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[var(--sun-300)] to-[var(--sun-500)] p-4">
+          <img src="./assets/images/icon-weather.svg" alt="" aria-hidden="true"
+            class="pointer-events-none absolute -right-3 -top-3 h-16 w-16">
+          <p class="font-mono text-[11px] uppercase tracking-wider text-neutral-800/80">Today in Cassis</p>
+          <p class="font-serif text-4xl text-neutral-900">27°</p>
+          <p class="text-sm text-neutral-800">Sunny · light breeze</p>
+        </div>
+        <div class="border-t border-dashed border-neutral-400/70 pt-4 font-mono text-[11px] uppercase tracking-wide leading-relaxed text-neutral-600">
+          <p>Est. 1987</p>
+          <p class="mt-1">Maison Soleil · 12 Rue des Oliviers · Cassis</p>
+          <p class="mt-1">© 2026 Maison Soleil</p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ============ Main content ============ -->
+    <main id="main-content" class="min-w-0 flex-1 px-4 py-6 sm:px-8 lg:px-16 lg:py-12">
+
+      <!-- Page header -->
+      <div class="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <p class="font-mono text-xs uppercase tracking-widest text-neutral-600">Booking · Confirmed</p>
+          <h1 class="mt-2 font-serif text-3xl text-neutral-900 sm:text-4xl lg:text-5xl">
+            Bienvenue, <em class="text-[var(--terracotta-600)] font-serif italic">Lucia.</em>
+          </h1>
+        </div>
+        <div class="flex gap-3 print:hidden">
+          <button type="button" id="print-btn"
+            class="rounded-full border border-neutral-400 bg-neutral-0 px-5 py-2.5 text-sm font-semibold text-neutral-900 transition-colors hover:bg-neutral-200">
+            Print receipt
+          </button>
+          <button type="button" id="calendar-btn"
+            class="rounded-full bg-neutral-900 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-neutral-800">
+            Add to calendar
+          </button>
+        </div>
+      </div>
+
+      <!-- Booking cards: receipt + note from host -->
+      <div class="group/cards mt-10 flex flex-col-reverse gap-8 lg:mt-16 lg:block lg:relative lg:h-[460px]">
+
+        <!-- Receipt card -->
+        <article
+          class="rounded-2xl bg-neutral-0 p-6 shadow-[0_20px_45px_-15px_rgba(43,38,32,0.25)] sm:p-8
+                 lg:absolute lg:left-0 lg:top-6 lg:z-10 lg:w-[400px] lg:-rotate-2 lg:transition-transform lg:duration-500 lg:ease-out
+                 lg:group-hover/cards:-rotate-[8deg] lg:group-hover/cards:-translate-x-3">
+          <div class="flex items-start justify-between font-mono text-[11px] uppercase tracking-wider text-neutral-600">
+            <span>Receipt</span>
+            <span class="text-right leading-relaxed">№ MS-2026<br>0421-AH</span>
+          </div>
+          <h2 class="mt-3 font-serif text-2xl text-neutral-900 sm:text-3xl">Your stay</h2>
+
+          <div class="mt-6 grid grid-cols-2 gap-4 border-t border-dashed border-neutral-400 pt-6">
+            <div>
+              <p class="font-mono text-[11px] uppercase tracking-wider text-neutral-600">Check in</p>
+              <p class="mt-1 font-serif text-2xl text-neutral-900 sm:text-3xl">25 Apr</p>
+              <p class="mt-1 text-xs text-neutral-600">Saturday · 15:00</p>
+            </div>
+            <div class="text-right">
+              <p class="font-mono text-[11px] uppercase tracking-wider text-neutral-600">Check out</p>
+              <p class="mt-1 font-serif text-2xl text-neutral-900 sm:text-3xl">29 Apr</p>
+              <p class="mt-1 text-xs text-neutral-600">Wednesday · 11:00</p>
+            </div>
+          </div>
+
+          <dl class="mt-6 space-y-2 border-t border-dashed border-neutral-400 pt-6 text-sm">
+            <div class="flex items-center justify-between gap-4">
+              <dt class="text-neutral-700">Room · La Garrigue × 4 nights</dt>
+              <dd class="font-mono text-neutral-900">€ 620.00</dd>
+            </div>
+            <div class="flex items-center justify-between gap-4">
+              <dt class="text-neutral-700">Breakfast × 2 guests</dt>
+              <dd class="font-mono text-neutral-900">€ 96.00</dd>
+            </div>
+            <div class="flex items-center justify-between gap-4">
+              <dt class="text-neutral-700">Tourist tax</dt>
+              <dd class="font-mono text-neutral-900">€ 14.40</dd>
+            </div>
+          </dl>
+
+          <div class="mt-6 flex items-center justify-between border-t border-dashed border-neutral-400 pt-6">
+            <p class="font-mono text-xs uppercase tracking-wider text-neutral-600">Total paid</p>
+            <p class="font-serif text-2xl text-neutral-900 sm:text-3xl">€ 730.40</p>
+          </div>
+
+          <div class="mt-6 flex items-end justify-between">
+            <p class="font-mono text-[11px] uppercase tracking-wider text-neutral-600">Paid · Wise · GBP</p>
+            <img src="./assets/images/icon-barcode.svg" alt="Booking barcode 0421-AH" class="h-6 w-auto">
+          </div>
+        </article>
+
+        <!-- Note from host card -->
+        <article
+          class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[var(--terracotta-500)] to-[var(--terracotta-700)] p-6 text-neutral-0 shadow-[0_20px_45px_-15px_rgba(122,57,26,0.45)] sm:p-8
+                 lg:absolute lg:left-[380px] lg:top-0 lg:z-20 lg:w-[420px] lg:rotate-2 lg:transition-transform lg:duration-500 lg:ease-out
+                 lg:group-hover/cards:rotate-[8deg] lg:group-hover/cards:translate-x-3 ml-10">
+          <img src="./assets/images/icon-sun.svg" alt="" aria-hidden="true" class="absolute right-6 top-6 h-9 w-9 opacity-90">
+          <p class="border-b border-dashed border-neutral-0/30 pb-4 font-mono text-[11px] uppercase tracking-wider text-neutral-0/70">Welcome card</p>
+
+          <p class="mt-12 font-serif italic text-lg text-sun-200 sm:text-xl">A note from your host,</p>
+          <h2 class="mt-2 font-serif italic text-4xl sm:text-5xl">Margaux.</h2>
+
+          <p class="mt-8 max-w-sm text-sm leading-relaxed text-neutral-0/90">
+            We're so glad you're coming. The shutters will be open, the lemonade cold, and the cat &ndash; Poivre &ndash; pretending not to notice you.
+          </p>
+
+          <div class="mt-20">
+            <p class="font-mono text-[11px] uppercase tracking-wider text-neutral-0/70">Room</p>
+            <p class="mt-5 font-serif text-2xl">La Garrigue</p>
+          </div>
+        </article>
+      </div>
+
+      <p class="mt-6 hidden items-center justify-center gap-3 text-center font-mono text-[11px] uppercase tracking-widest text-neutral-600 lg:mt-10 lg:flex print:hidden">
+        <img src="./assets/images/icon-sparkle.svg" alt="" class="h-2 w-2" aria-hidden="true">
+        Hover to fan
+        <img src="./assets/images/icon-sparkle.svg" alt="" class="h-2 w-2" aria-hidden="true">
+      </p>
+
+      <!-- Guest info row -->
+      <div class="mt-10 grid grid-cols-1 gap-6 lg:mt-8 lg:grid-cols-3 print:hidden">
+
+        <!-- Arrival -->
+        <article class="rounded-2xl bg-neutral-0 p-6 shadow-lg">
+          <div class="flex items-center justify-between">
+            <span class="flex items-center gap-3">
+              <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--terracotta-100)] text-[var(--terracotta-600)]">
+                <img src="./assets/images/icon-key.svg" alt="" class="h-5 w-5 bg-[var(--terracotta-600)]" aria-hidden="true">
+              </span>
+              <span class="font-mono text-xs font-medium uppercase tracking-wider text-[var(--terracotta-600)]">Arrival</span>
+            </span>
+            <span class="font-serif text-2xl text-[var(--terracotta-600)]">01</span>
+          </div>
+          <h3 class="mt-5 text-lg font-semibold text-neutral-900">Check-in from 15:00</h3>
+          <p class="mt-1 text-xs text-neutral-600">Sat, 25 April</p>
+          <p class="mt-4 text-sm leading-relaxed text-neutral-700">
+            Ring the brass bell by the blue door. If we're at the market, the key is in the terracotta pot by the olive tree.
+          </p>
+        </article>
+
+        <!-- Wifi -->
+        <article class="rounded-2xl bg-neutral-0 p-6 shadow-lg">
+          <div class="flex items-center justify-between">
+            <span class="flex items-center gap-3">
+              <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-500">
+                <img src="./assets/images/icon-wifi.svg" alt="" class="h-5 w-5" aria-hidden="true">
+              </span>
+              <span class="font-mono text-xs font-medium uppercase tracking-wider text-blue-500">Wifi</span>
+            </span>
+            <span class="font-serif text-2xl text-blue-500">02</span>
+          </div>
+          <h3 class="mt-5 text-lg font-semibold text-neutral-900">Le Soleil · Guest</h3>
+          <p class="mt-1 text-xs text-neutral-600">Password below</p>
+
+          <div class="mt-4 space-y-1 rounded-xl bg-neutral-100 p-2">
+            <div class="flex items-center justify-between rounded-lg px-3 py-2">
+              <span class="font-mono text-[11px] uppercase tracking-wider text-neutral-600">Network</span>
+              <span class="text-sm font-medium text-neutral-900">Le Soleil · Guest</span>
+            </div>
+            <div class="flex items-center justify-between rounded-lg bg-neutral-0 px-3 py-2">
+              <span class="font-mono text-[11px] uppercase tracking-wider text-neutral-600">Password</span>
+              <span class="flex items-center gap-2">
+                <span class="font-mono text-sm font-medium text-neutral-900">soleil-2026</span>
+                <button type="button" id="copy-wifi-btn" data-password="soleil-2026"
+                  class="rounded-full border border-neutral-400 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-neutral-700 transition-colors hover:bg-neutral-200">
+                  Copy
+                </button>
+              </span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Breakfast -->
+        <article class="rounded-2xl bg-neutral-0 p-6 shadow-lg">
+          <div class="flex items-center justify-between">
+            <span class="flex items-center gap-3">
+              <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-rose-500">
+                <img src="./assets/images/icon-breakfast.svg" alt="" class="h-5 w-5" aria-hidden="true">
+              </span>
+              <span class="font-mono text-xs font-medium uppercase tracking-wider text-rose-500">Breakfast</span>
+            </span>
+            <span class="font-serif text-2xl text-rose-500">03</span>
+          </div>
+          <h3 class="mt-5 text-lg font-semibold text-neutral-900">Served 8 &ndash; 10:30</h3>
+          <p class="mt-1 text-xs text-neutral-600">On the terrace</p>
+          <p class="mt-4 text-sm leading-relaxed text-neutral-700">
+            Fresh figs, Marseille honey, pain au levain, and espresso. Gluten-free option? Leave a note the night before.
+          </p>
+        </article>
+      </div>
+    </main>
+  </div>
+
+  <footer class="attribution py-4 print:hidden">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
+    Coded by <a href="#">GentleWhiz</a>.
+  </footer>
+
+  <script>
+    // Mobile navigation toggle
+    (function () {
+      let menu = document.getElementById('mobile-menu');
+      let openBtn = document.getElementById('menu-open-btn');
+      let closeBtn = document.getElementById('menu-close-btn');
+
+      function openMenu() {
+        menu.classList.remove('hidden');
+        menu.classList.add('flex');
+        openBtn.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMenu() {
+        menu.classList.add('hidden');
+        menu.classList.remove('flex');
+        openBtn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+
+      openBtn.addEventListener('click', openMenu);
+      closeBtn.addEventListener('click', closeMenu);
+      menu.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', closeMenu);
+      });
+    })();
+
+    // Copy wifi password to clipboard
+    (function () {
+      let btn = document.getElementById('copy-wifi-btn');
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        let password = btn.getAttribute('data-password');
+        let restore = function () {
+          btn.textContent = 'Copy';
+        };
+
+        function fallbackCopy(text) {
+          let textarea = document.createElement('textarea');
+          textarea.value = text;
+          textarea.style.position = 'fixed';
+          textarea.style.opacity = '0';
+          document.body.appendChild(textarea);
+          textarea.select();
+          try { document.execCommand('copy'); } catch (err) {}
+          document.body.removeChild(textarea);
+        }
+
+        let showCopied = function () {
+          btn.textContent = 'Copied';
+          setTimeout(restore, 1500);
+        };
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(password).then(showCopied, function () {
+            fallbackCopy(password);
+            showCopied();
+          });
+        } else {
+          fallbackCopy(password);
+          showCopied();
+        }
+      });
+    })();
+
+    // Print receipt
+    (function () {
+      let btn = document.getElementById('print-btn');
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        window.print();
+      });
+    })();
+
+    // Add to calendar (.ics download)
+    (function () {
+      let btn = document.getElementById('calendar-btn');
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        let ics = [
+          'BEGIN:VCALENDAR',
+          'VERSION:2.0',
+          'PRODID:-//Maison Soleil//Booking Confirmation//EN',
+          'BEGIN:VEVENT',
+          'UID:ms-2026-0421-ah@maisonsoleil',
+          'DTSTAMP:20260101T000000Z',
+          'DTSTART:20260425T150000',
+          'DTEND:20260429T110000',
+          'SUMMARY:Stay at Maison Soleil \u2013 La Garrigue',
+          'DESCRIPTION:Booking MS-2026 0421-AH. Check-in from 15:00\\, ring the brass bell by the blue door.',
+          'LOCATION:Maison Soleil \u00b7 12 Rue des Oliviers \u00b7 Cassis',
+          'END:VEVENT',
+          'END:VCALENDAR'
+        ].join('\r\n');
+
+        let blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+        let url = URL.createObjectURL(blob);
+        let a = document.createElement('a');
+        a.href = url;
+        a.download = 'maison-soleil-stay.ics';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      });
+    })();
+  </script>
+</body>
+</html>
